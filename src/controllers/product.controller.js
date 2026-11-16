@@ -21,18 +21,38 @@ export async function getProducts(req, res) {
     }
 }
 
-export function getProductById(req, res) {
+export async function getProductById(req, res) {
 
-    try{
-        const params = req.params;
+    try {
+        const producto = await Product.findById(req.params.id)
+
+        if (!producto) {
+            return res.status(404).send({
+                success: false,
+                message: "Producto no encontrado"
+            })
+        }
+
+        return res.status(200).send({
+            success: true,
+            product: producto
+        })
 
     } catch (error) {
-    console.log(error)
-    return res.status(500).send({
-        success: false,
-        message: "Error al obtener el producto",
-    })
-    
+        console.log(error)
+
+        // El id no tiene formato de ObjectId de Mongo
+        if (error.name === "CastError") {
+            return res.status(400).send({
+                success: false,
+                message: "Id de producto invalido"
+            })
+        }
+
+        return res.status(500).send({
+            success: false,
+            message: "Error al obtener el producto",
+        })
     }
 }
 

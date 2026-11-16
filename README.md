@@ -138,12 +138,14 @@ Errores:
 | Método | Ruta | Auth | Descripción | Estado |
 |---|---|---|---|---|
 | `GET` | `/products` | — | Lista todos los productos | ✅ |
-| `GET` | `/products/:id` | — | Trae un producto por ID | 🚧 pendiente |
+| `GET` | `/products/:id` | — | Trae un producto por ID | ✅ |
 | `POST` | `/products` | admin | Crea un producto | ✅ |
 | `PUT` | `/products/:id` | admin | Modifica un producto | 🚧 stub |
 | `DELETE` | `/products/:id` | admin | Elimina un producto | 🚧 stub |
 
 Campos del producto: `name`, `description`, `price`, `stock`, `category`, `image`.
+
+En `GET /products/:id`: `404` si no existe el producto y `400` si el `id` no tiene formato de ObjectId.
 
 ---
 
